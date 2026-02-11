@@ -1,4 +1,4 @@
-package com.transporte.transport_bff;
+package com.transporte.transport_bff.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +22,7 @@ public class BffController {
     public List<Object> getVehicles() {
         // Concatena la URL: http://transport-service:8081/api/vehicles
         String url = backendUrl + "/api/vehicles";
-        
+
         // Hace la llamada al otro microservicio
         Object[] vehicles = restTemplate.getForObject(url, Object[].class);
         return Arrays.asList(vehicles);

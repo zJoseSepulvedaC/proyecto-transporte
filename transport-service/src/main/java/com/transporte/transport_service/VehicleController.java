@@ -2,6 +2,8 @@ package com.transporte.transport_service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.transporte.transport_service.entity.Vehicle;
+import com.transporte.transport_service.repository.VehicleRepository;
 import java.util.List;
 import java.util.Optional;
 

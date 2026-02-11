@@ -1,4 +1,4 @@
-package com.transporte.transport_service;
+package com.transporte.transport_service.listener;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
