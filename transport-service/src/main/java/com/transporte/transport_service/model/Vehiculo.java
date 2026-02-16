@@ -1,30 +1,29 @@
-package com.transporte.transport_service.entity;
+package com.transporte.transport_service.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "VEHICULOS")
-public class Vehicle {
+public class Vehiculo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String patente;
-    private String modelo;
-    private String estado;
     private Double latitud;
     private Double longitud;
+    private LocalDateTime fechaRegistro;
 
-    public Vehicle() {
+    public Vehiculo() {
     }
 
-    public Vehicle(String patente, String modelo, String estado, Double latitud, Double longitud) {
+    public Vehiculo(String patente, Double latitud, Double longitud, LocalDateTime fechaRegistro) {
         this.patente = patente;
-        this.modelo = modelo;
-        this.estado = estado;
         this.latitud = latitud;
         this.longitud = longitud;
+        this.fechaRegistro = fechaRegistro;
     }
 
     // Getters y Setters
@@ -44,22 +43,6 @@ public class Vehicle {
         this.patente = patente;
     }
 
-    public String getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
     public Double getLatitud() {
         return latitud;
     }
@@ -74,5 +57,13 @@ public class Vehicle {
 
     public void setLongitud(Double longitud) {
         this.longitud = longitud;
+    }
+
+    public LocalDateTime getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(LocalDateTime fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 }

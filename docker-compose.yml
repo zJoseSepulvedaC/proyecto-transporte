@@ -4,6 +4,7 @@ services:
   # 1. Base de Datos Oracle
   oracle-db:
     image: gvenzl/oracle-xe
+    container_name: oracle-db
     ports:
       - "1521:1521"
     environment:
@@ -14,15 +15,18 @@ services:
   # 2. RabbitMQ
   rabbitmq:
     image: rabbitmq:3-management
+    container_name: rabbitmq
     ports:
-      - "5672:5672"   # Puerto interno
+      - "5672:5672" # Puerto interno
       - "15672:15672" # Puerto panel web
     networks:
       - transport-net
 
-  # 3. Tu Consumidor (transport-service)
+  # 3. Transport Service (Consumidor)
   transport-service:
     build: ./transport-service
+    container_name: transport-service
+    restart: on-failure # Resucita si falla al conectar con Oracle
     ports:
       - "8081:8081"
     environment:
@@ -31,15 +35,21 @@ services:
       SPRING_DATASOURCE_PASSWORD: admin
       SPRING_RABBITMQ_HOST: rabbitmq
       SPRING_RABBITMQ_PORT: 5672
+    volumes:
+      # CORRECCIÓN: Mapeamos a una subcarpeta segura dentro de /app
+      # Asegúrate de que tu código Java escriba en "data-output/archivo.json"
+      - ./data-output:/app/data-output
     depends_on:
       - oracle-db
       - rabbitmq
     networks:
       - transport-net
 
-  # 4. Tu Nuevo Productor (BFF) - ¡ESTO FALTABA!
+  # 4. Transport BFF (Productor)
   transport-bff:
     build: ./transport-bff
+    container_name: transport-bff
+    restart: on-failure
     ports:
       - "8080:8080"
     environment:
